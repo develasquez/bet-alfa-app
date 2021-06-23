@@ -3,20 +3,40 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from './services/data.service';
 import { Observable } from 'rxjs';
 import { CatsPhoto } from './models/cats-photo';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
+
 export class AppComponent implements OnInit {
+  
+  fileName = '';
 
-  joke$: Observable<Joke>;
-  catUrl$: Observable<CatsPhoto>;
-
-  constructor(private dataService: DataService) { }
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.joke$ = this.dataService.getJoke();
-    this.catUrl$ = this.dataService.getCats();
+   
+  }
+
+  onFileSelected(event) {
+
+      const file:File = event.target.files[0];
+
+      if (file) {
+
+          this.fileName = file.name;
+
+          const formData = new FormData();
+
+          formData.append("file", file);
+          formData.append("customerId", '123456')
+
+          const upload$ = this.http.post("https://felivelasquez-eval-prod.apigee.net/upload", formData);
+
+          upload$.subscribe();
+      }
   }
 }
