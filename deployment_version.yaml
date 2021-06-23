@@ -1,0 +1,15 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: bet-alfa-app
+spec:
+  template:
+    spec:
+      containers:
+      - image: gcr.io//bet-alfa-app:
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: 200m
+            memory: 128Mi
