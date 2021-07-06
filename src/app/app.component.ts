@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
           const formData = new FormData();
 
           formData.append("file", file);
-          formData.append("customerId", '123456')
+          formData.append("customerId", 'felivelasquez@google.com')
 
           const upload$ = this.http.post("https://felivelasquez-eval-prod.apigee.net/upload", formData);
 
